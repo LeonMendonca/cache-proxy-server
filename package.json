@@ -11,9 +11,11 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^22.5.5",
+    "tsx": "^4.19.1",
     "typescript": "^5.6.2"
   },
   "dependencies": {
-    "cache-manager": "^6.0.0"
+    "@keyv/redis": "^3.0.1",
+    "keyv": "^5.0.3"
   }
 }
