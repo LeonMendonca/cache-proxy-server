@@ -5,7 +5,6 @@ import { requestServer } from "./httpReq";
 
 const PORT: number = 2900;
 const baseUrl = `http://localhost:${PORT}`
-const baseServerUrl = 'https://jsonplaceholder.typicode.com'
 
 const server = http.createServer();
 
