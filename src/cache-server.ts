@@ -43,19 +43,16 @@ server.on('request', async (req, res)=> {
 
 //Throwing an error will call this function through catch block
 function errorHandler(error: unknown, req: IncomingMessage, res: http.ServerResponse) {
+  let errMsg: string = "";
   if(error instanceof Error) {
-    const errMsg: string = `Bad request ${error.message}`
-    res.writeHead(400, { 
-      'Content-Type': 'text/plain',
-      'Content-Length': Buffer.byteLength(errMsg),
-    }).write(errMsg);
+    errMsg = `Bad request ${error.message}`
   } else {
-    const errMsg: string = "Something went wrong";
-    res.writeHead(400, {
+    errMsg = "Something went wrong";
+  }
+  res.writeHead(400, { 
       'Content-Type': 'text/plain',
       'Content-Length': Buffer.byteLength(errMsg),
     }).write(errMsg);
-  }
   res.end();
 }
 
