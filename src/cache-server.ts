@@ -1,4 +1,4 @@
-import http, { IncomingMessage } from "http"
+import http, { IncomingMessage, ServerResponse } from "http"
 import { URL } from "url";
 import { CacheService } from "./keyv-redis";
 import { requestServer } from "./httpReq";
@@ -42,7 +42,7 @@ server.on('request', async (req, res)=> {
 });
 
 //Throwing an error will call this function through catch block
-function errorHandler(error: unknown, req: IncomingMessage, res: http.ServerResponse) {
+function errorHandler(error: unknown, req: IncomingMessage, res: ServerResponse) {
   let errMsg: string = "";
   if(error instanceof Error) {
     errMsg = `Bad request ${error.message}`
