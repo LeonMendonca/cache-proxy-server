@@ -1,8 +1,7 @@
 import http, { IncomingMessage } from "http"
 import { URL } from "url";
-import { CacheService, keyv } from "./keyv-redis";
+import { CacheService } from "./keyv-redis";
 import { requestServer } from "./httpReq";
-import { error } from "console";
 
 const PORT: number = 2900;
 const baseUrl = `http://localhost:${PORT}`

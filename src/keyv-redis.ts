@@ -33,4 +33,4 @@ class CacheService {
   }
 }
 
-export { CacheService, keyv };
+export { CacheService };
