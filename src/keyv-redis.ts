@@ -28,7 +28,7 @@ class CacheService {
     return data;
   }
   async set(key: string, value: any) {
-    const ttl: number = 0;
+    const ttl: number = 60 * 60 * 1000;
     await keyv.set(key, value, ttl);
   }
 }
