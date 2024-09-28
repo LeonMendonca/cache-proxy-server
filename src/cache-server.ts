@@ -11,6 +11,7 @@ const server = http.createServer();
 const cacheService = new CacheService();
 
 server.on('request', async (req, res)=> {
+  let response = "";
   try {
     if(!req.url) { 
       throw new Error("No URL"); 
@@ -18,23 +19,19 @@ server.on('request', async (req, res)=> {
     const url = new URL(`${baseUrl}${req.url}`);
     const value = await cacheService.get(url.pathname);
     if(value) {
-      res.writeHead(200, "OK", {
-        'Content-Type': 'text/plain',
-        'X-Cache': 'hit',
-        'Content-Length': Buffer.byteLength(value),
-      });
-      res.write(value);
+      response = value;
+      res.setHeader("X-Cache", 'hit');
     } else {
       const rawData = await requestServer(url.pathname);
-      const data = await JSON.parse(rawData);
-      res.writeHead(200, "OK", {
-        'Content-Type': 'text/plain',
-        'X-Cache': 'miss',
-        'Content-Length': Buffer.byteLength(data),
-      });
-      res.write(data);
+      response = await JSON.parse(rawData);
+      res.setHeader("X-Cache", 'miss'); 
       await cacheService.set(url.pathname, rawData);
     }
+    res.writeHead(200, "OK", {
+      'Content-Type': 'application/json',
+      'Content-Length': Buffer.byteLength(response),
+    });
+    res.write(response);
     res.end();
   } catch (error) {
     errorHandler(error, req, res);
